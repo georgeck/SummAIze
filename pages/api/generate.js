@@ -15,8 +15,8 @@ export default async function (req, res) {
         return;
     }
 
-    const animal = req.body.animal || '';
-    if (animal.trim().length === 0) {
+    const url = req.body.url || '';
+    if (url.trim().length === 0) {
         res.status(400).json({
             error: {
                 message: "Please enter a valid URL",
@@ -27,7 +27,7 @@ export default async function (req, res) {
 
     try {
         const completion = await openai.createChatCompletion({
-            model: "gpt-3.5-turbo", messages: generateChatPrompt(animal), temperature: 0.6,
+            model: "gpt-3.5-turbo", messages: generateChatPrompt(url), temperature: 0.6,
         });
         // console.log(completion);
 
