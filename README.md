@@ -2,6 +2,9 @@
 
 This is an example app that uses OpenAI API `gpt-3.5-turbo` model to generate a summary of any web article from its URL.
 
+## Demo Video 
+https://user-images.githubusercontent.com/124426/222802030-b88eb70d-74f6-4b4e-8a82-871447239c11.mp4
+
 ## Setup
 
 1. If you don’t have Node.js installed, [install it from here](https://nodejs.org/en/) (Node.js version >= 14.6.0 required)
