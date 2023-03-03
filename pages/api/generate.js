@@ -1,4 +1,7 @@
 import {Configuration, OpenAIApi} from "openai";
+import {JSDOM, VirtualConsole} from "jsdom";
+import {Readability} from "@mozilla/readability";
+import {NodeHtmlMarkdown} from "node-html-markdown";
 
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
@@ -26,12 +29,21 @@ export default async function (req, res) {
     }
 
     try {
-        const completion = await openai.createChatCompletion({
-            model: "gpt-3.5-turbo", messages: generateChatPrompt(url), temperature: 0.6,
-        });
-        // console.log(completion);
 
-        res.status(200).json({result: completion.data.choices["0"].message.content});
+        const chatInput = {
+            model: "gpt-3.5-turbo",
+            messages: await generateChatPrompt(url),
+            temperature: 0.6,
+        };
+
+        const completion = await openai.createChatCompletion(chatInput);
+        const {prompt_tokens, completion_tokens, total_tokens} = completion.data.usage;
+        res.status(200).json({
+            result: completion.data.choices["0"].message.content,
+            prompt_tokens: prompt_tokens,
+            completion_tokens: completion_tokens,
+            total_tokens: total_tokens,
+        });
     } catch (error) {
         // Consider adjusting the error handling logic for your use case
         if (error.response) {
@@ -48,30 +60,43 @@ export default async function (req, res) {
     }
 }
 
-// function generatePrompt(animal) {
-//     const capitalizedAnimal = animal[0].toUpperCase() + animal.slice(1).toLowerCase();
-//     return `Suggest three names for an animal that is a superhero.
-//
-// Animal: Cat
-// Names: Captain Sharpclaw, Agent Fluffball, The Incredible Feline
-// Animal: Dog
-// Names: Ruff the Protector, Wonder Canine, Sir Barks-a-Lot
-// Animal: ${capitalizedAnimal}
-// Names:`;
-// }
 
-//
-// [
-//   {"role": "system", "content": "You are a helpful assistant."},
-//   {"role": "user", "content": "Who won the world series in 2020?"},
-//   {"role": "assistant", "content": "The Los Angeles Dodgers won the World Series in 2020."},
-//   {"role": "user", "content": "Where was it played?"}
-// ]
+async function generateChatPrompt(url) {
+    const resp = await fetch(url);
+    const text = await resp.text();
 
-function generateChatPrompt(message) {
+    const virtualConsole = new VirtualConsole();
+    const doc = new JSDOM(text, { virtualConsole });
+
+    const reader = new Readability(doc.window.document);
+    const article = reader.parse();
+    const contentMarkdown = NodeHtmlMarkdown.translate(article.content);
+
+    const markdown = removeLinksFromMarkdown(contentMarkdown);
+
+    const truncatedString = truncateStringToWordCount(markdown, 3100);
+
     return [
         {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "Suggest three names for an animal that is a superhero"},
-        {"role": "user", "content": `The animal is a ${message}`}
-    ]
+        {"role": "user", "content": "Can you help summarize the following article?"},
+        {"role": "user", "content": `${truncatedString}`}
+    ];
+}
+
+// function that takes a string and truncates it to a word boundary of given word count
+function truncateStringToWordCount(str, num) {
+    let truncatedStr = str.split(/\s+/).slice(0, num).join(" ");
+    if (truncatedStr.length < str.length) {
+        truncatedStr = str.slice(0, truncatedStr.lastIndexOf(" "));
+    }
+    return truncatedStr;
+}
+
+// function that removes links from markdown
+function removeLinksFromMarkdown(text) {
+    // Replace all link occurrences with the link text
+    let regex = /\[([^\]]+)\]\(([^)]+)\)/g;
+    text = text.replace(regex, "$1");
+
+    return text;
 }

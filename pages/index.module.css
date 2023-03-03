@@ -45,7 +45,7 @@
 .main form {
     display: flex;
     flex-direction: column;
-    width: 320px;
+    width: 650px;
 }
 
 .main input[type="text"] {
@@ -72,6 +72,12 @@
 }
 
 .main .result {
-    font-weight: bold;
-    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    width: 850px;
+    font-family: "ColfaxAI", Helvetica, sans-serif;
+    font-weight: normal;
+    margin-top: 30px;
+    margin-left: 50px;
+    margin-right: 50px;
 }
