@@ -81,3 +81,14 @@
     margin-left: 50px;
     margin-right: 50px;
 }
+
+.main .stats {
+    display: flex;
+    flex-direction: row;
+    width: 850px;
+    font-family: "ColfaxAI", Helvetica, sans-serif;
+    font-weight: normal;
+    margin-top: 30px;
+    margin-left: 50px;
+    margin-right: 50px;
+}

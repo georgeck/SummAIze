@@ -29,11 +29,11 @@ export default async function (req, res) {
     }
 
     try {
-
+        const {prompt, title} = await generateChatPrompt(url);
         const chatInput = {
             model: "gpt-3.5-turbo",
-            messages: await generateChatPrompt(url),
-            temperature: 0.6,
+            messages: prompt,
+            temperature: 0.4,
         };
 
         const completion = await openai.createChatCompletion(chatInput);
@@ -43,6 +43,7 @@ export default async function (req, res) {
             prompt_tokens: prompt_tokens,
             completion_tokens: completion_tokens,
             total_tokens: total_tokens,
+            title: title,
         });
     } catch (error) {
         // Consider adjusting the error handling logic for your use case
@@ -66,7 +67,7 @@ async function generateChatPrompt(url) {
     const text = await resp.text();
 
     const virtualConsole = new VirtualConsole();
-    const doc = new JSDOM(text, { virtualConsole });
+    const doc = new JSDOM(text, {virtualConsole});
 
     const reader = new Readability(doc.window.document);
     const article = reader.parse();
@@ -74,13 +75,18 @@ async function generateChatPrompt(url) {
 
     const markdown = removeLinksFromMarkdown(contentMarkdown);
 
-    const truncatedString = truncateStringToWordCount(markdown, 3100);
+    const truncatedString = truncateStringToWordCount(markdown, 2500);
 
-    return [
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "Can you help summarize the following article?"},
-        {"role": "user", "content": `${truncatedString}`}
-    ];
+    return {
+        prompt: [
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": "Can you help 250 word summary of the following article?"},
+            {"role": "user", "content": "The article is formatted as markdown."},
+            {"role": "user", "content": `The title of the article is ${article.title}.`},
+            {"role": "user", "content": `The article is as follows: \n${truncatedString}`}
+        ],
+        title: `${article.title}`,
+    };
 }
 
 // function that takes a string and truncates it to a word boundary of given word count

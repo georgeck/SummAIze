@@ -5,6 +5,18 @@ import styles from "./index.module.css";
 export default function Home() {
     const [urlInput, setUrlInput] = useState("");
     const [result, setResult] = useState("");
+    const [title, setTitle] = useState("");
+    const [prompt_tokens, setPrompt_tokens] = useState("");
+    const [completion_tokens, setCompletion_tokens] = useState("");
+    const [total_tokens, setTotal_tokens] = useState("");
+
+
+    function resetState() {
+        setTitle("");
+        setPrompt_tokens("");
+        setCompletion_tokens("");
+        setTotal_tokens("");
+    }
 
     async function onSubmit(event) {
         event.preventDefault();
@@ -12,6 +24,9 @@ export default function Home() {
             // disable form button to prevent multiple requests
             event.target[1].setAttribute("disabled", "");
             setResult("Generating...");
+            //reset the result
+            resetState();
+
             const response = await fetch("/api/generate", {
                 method: "POST",
                 headers: {
@@ -24,8 +39,12 @@ export default function Home() {
             if (response.status !== 200) {
                 throw data.error || new Error(`Request failed with status ${response.status}`);
             }
-
+            console.log(data);
             setResult(data.result);
+            setTitle(data.title);
+            setPrompt_tokens(data.prompt_tokens);
+            setCompletion_tokens(data.completion_tokens);
+            setTotal_tokens(data.total_tokens);
             setUrlInput("");
         } catch (error) {
             // Consider implementing your own error handling logic here
@@ -61,9 +80,16 @@ export default function Home() {
 
                 <div className={styles.result}>
                     {result.length > 0 &&
-                        <h4>Summary:</h4>
+                        <h4>Article Summary:</h4>
                     }
+                    {title.length > 0 && <h5>Title: {title}</h5>}
                     {result}
+                    <p>
+                    {prompt_tokens > 0 && <span><b>Prompt tokens</b>: {prompt_tokens}</span>}
+                    {completion_tokens > 0 && <span><b>&nbsp; Completion tokens</b>: {completion_tokens}</span>}
+                    {total_tokens > 0 &&  <span><b>&nbsp; Total tokens</b>: {total_tokens}</span>}
+                    </p>
+
                 </div>
             </main>
         </div>
