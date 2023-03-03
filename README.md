@@ -1,8 +1,10 @@
 # OpenAI API example app
 
-This is an example app that uses OpenAI API `gpt-3.5-turbo` model to generate a summary of any web article from its URL.
+This is an example app that uses OpenAI API `gpt-3.5-turbo` model to generate a summary of any web article from its URL. The code is based on the [Quick-Start guide](https://github.com/openai/openai-quickstart-node.git) from [OpenAI](https://platform.openai.com/docs/quickstart/setup).
 
 ## Demo Video 
+The following video explains how the application works.
+
 https://user-images.githubusercontent.com/124426/222802030-b88eb70d-74f6-4b4e-8a82-871447239c11.mp4
 
 ## Setup
