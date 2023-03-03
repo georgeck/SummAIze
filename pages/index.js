@@ -3,7 +3,7 @@ import { useState } from "react";
 import styles from "./index.module.css";
 
 export default function Home() {
-  const [animalInput, setAnimalInput] = useState("");
+  const [urlInput, setUrlInput] = useState("");
   const [result, setResult] = useState();
 
   async function onSubmit(event) {
@@ -14,7 +14,7 @@ export default function Home() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ animal: animalInput }),
+        body: JSON.stringify({ animal: urlInput }),
       });
 
       const data = await response.json();
@@ -23,7 +23,7 @@ export default function Home() {
       }
 
       setResult(data.result);
-      setAnimalInput("");
+      setUrlInput("");
     } catch(error) {
       // Consider implementing your own error handling logic here
       console.error(error);
@@ -46,8 +46,8 @@ export default function Home() {
             type="text"
             name="animal"
             placeholder="Enter a url"
-            value={animalInput}
-            onChange={(e) => setAnimalInput(e.target.value)}
+            value={urlInput}
+            onChange={(e) => setUrlInput(e.target.value)}
           />
           <input type="submit" value="Generate Summary" />
         </form>
