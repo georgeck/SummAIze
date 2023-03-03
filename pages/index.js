@@ -10,7 +10,6 @@ export default function Home() {
     const [completion_tokens, setCompletion_tokens] = useState("");
     const [total_tokens, setTotal_tokens] = useState("");
 
-
     function resetState() {
         setTitle("");
         setPrompt_tokens("");
@@ -39,13 +38,13 @@ export default function Home() {
             if (response.status !== 200) {
                 throw data.error || new Error(`Request failed with status ${response.status}`);
             }
-            console.log(data);
             setResult(data.result);
             setTitle(data.title);
             setPrompt_tokens(data.prompt_tokens);
             setCompletion_tokens(data.completion_tokens);
             setTotal_tokens(data.total_tokens);
             setUrlInput("");
+            // Calculate total cost as total_tokens / 1000 * 0.002 (2 cents per token)  and round to nearest cent
         } catch (error) {
             // Consider implementing your own error handling logic here
             console.error(error);
@@ -87,7 +86,7 @@ export default function Home() {
                     <p>
                     {prompt_tokens > 0 && <span><b>Prompt tokens</b>: {prompt_tokens}</span>}
                     {completion_tokens > 0 && <span><b>&nbsp; Completion tokens</b>: {completion_tokens}</span>}
-                    {total_tokens > 0 &&  <span><b>&nbsp; Total tokens</b>: {total_tokens}</span>}
+                    {total_tokens > 0 &&  <span><b>&nbsp; Total tokens</b>: {total_tokens};&nbsp; <b>Total Cost:</b> ${(Number.parseInt(total_tokens)  / 1000) * 0.002}</span>}
                     </p>
 
                 </div>
