@@ -20,6 +20,10 @@ export default function Home() {
     async function onSubmit(event) {
         event.preventDefault();
         try {
+            if(urlInput === "") {
+                setResult("Please enter a valid URL to summarize");
+                return;
+            }
             // disable form button to prevent multiple requests
             event.target[1].setAttribute("disabled", "");
             setResult("Generating...");
@@ -36,7 +40,8 @@ export default function Home() {
 
             const data = await response.json();
             if (response.status !== 200) {
-                throw data.error || new Error(`Request failed with status ${response.status}`);
+                // noinspection ExceptionCaughtLocallyJS
+                throw new Error(`Request failed with status ${response.status}`);
             }
             setResult(data.result);
             setTitle(data.title);
@@ -45,10 +50,8 @@ export default function Home() {
             setTotal_tokens(data.total_tokens);
             setUrlInput("");
         } catch (error) {
-            // Consider implementing your own error handling logic here
             console.error(error);
-            alert(error.message);
-            setResult("Error generating summary. Please try again.");
+            setResult(`Error generating summary. Please try again.\n${error.message}`);
         } finally {
             // re-enable form button
             event.target[1].removeAttribute("disabled");
