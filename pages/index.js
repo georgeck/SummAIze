@@ -58,7 +58,7 @@ export default function Home() {
     return (
         <div>
             <Head>
-                <title>OpenAI Summarize URL</title>
+                <title>SummAIze</title>
                 <link rel="icon" href="/favicon-32x32.png"/>
             </Head>
 
