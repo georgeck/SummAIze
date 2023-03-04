@@ -59,11 +59,11 @@ export default function Home() {
         <div>
             <Head>
                 <title>OpenAI Summarize URL</title>
-                <link rel="icon" href="/dog.png"/>
+                <link rel="icon" href="/favicon-32x32.png"/>
             </Head>
 
             <main className={styles.main}>
-                <img src="/openai.png" className={styles.icon} alt={"OpenAI Logo"}/>
+                <img src="/Logo.png" className={styles.icon} alt={"SummAIze Logo"}/>
                 <h3>Enter an URL to summarize</h3>
                 <form onSubmit={onSubmit}>
                     <input
