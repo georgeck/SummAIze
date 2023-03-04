@@ -4,7 +4,7 @@ import styles from "./index.module.css";
 
 export default function Home() {
     const [urlInput, setUrlInput] = useState("");
-    const [result, setResult] = useState("");
+    const [result, setResult] = useState("Article will be summarized here...");
     const [title, setTitle] = useState("");
     const [prompt_tokens, setPrompt_tokens] = useState("");
     const [completion_tokens, setCompletion_tokens] = useState("");
@@ -44,7 +44,6 @@ export default function Home() {
             setCompletion_tokens(data.completion_tokens);
             setTotal_tokens(data.total_tokens);
             setUrlInput("");
-            // Calculate total cost as total_tokens / 1000 * 0.002 (2 cents per token)  and round to nearest cent
         } catch (error) {
             // Consider implementing your own error handling logic here
             console.error(error);
@@ -68,9 +67,8 @@ export default function Home() {
                 <h3>Enter an URL to summarize</h3>
                 <form onSubmit={onSubmit}>
                     <input
-                        type="text"
-                        name="url"
-                        placeholder="Enter the url of the article to summarize"
+                        type="text" name="url"
+                        placeholder="Url to summarize [e.g. https://george.chiramattel.com/blog/application-rewrite]"
                         value={urlInput}
                         onChange={(e) => setUrlInput(e.target.value)}
                     />
@@ -78,17 +76,17 @@ export default function Home() {
                 </form>
 
                 <div className={styles.result}>
-                    {result.length > 0 &&
-                        <h4>Article Summary:</h4>
+                    {completion_tokens > 0 &&
+                        <label htmlFor="resultID"><b>Article Title:</b> {title}<br/><b>Article Summary</b> 👇</label>
                     }
-                    {title.length > 0 && <h5>Title: {title}</h5>}
-                    {result}
-                    <p>
-                    {prompt_tokens > 0 && <span><b>Prompt tokens</b>: {prompt_tokens}</span>}
-                    {completion_tokens > 0 && <span><b>&nbsp; Completion tokens</b>: {completion_tokens}</span>}
-                    {total_tokens > 0 &&  <span><b>&nbsp; Total tokens</b>: {total_tokens};&nbsp; <b>Total Cost:</b> ${(Number.parseInt(total_tokens)  / 1000) * 0.002}</span>}
-                    </p>
+                    <textarea name="result" id="resultID" rows="25" disabled value={result}/>
 
+                    <div>
+                        {prompt_tokens > 0 && <span><b>Prompt tokens</b>: {prompt_tokens}</span>}
+                        {completion_tokens > 0 && <span> |  <b>Completion tokens</b>: {completion_tokens}</span>}
+                        {total_tokens > 0 && <span> | <b>Total tokens</b>: {total_tokens} |&nbsp;
+                            <b>Total Cost:</b> ${((Number.parseInt(total_tokens) / 1000) * 0.002).toFixed(6)}</span>}
+                    </div>
                 </div>
             </main>
         </div>
