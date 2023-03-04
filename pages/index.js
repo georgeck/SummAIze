@@ -67,10 +67,11 @@ export default function Home() {
 
             <main className={styles.main}>
                 <img src="/Logo.png" className={styles.icon} alt={"SummAIze Logo"}/>
-                <h3>Enter an URL to summarize</h3>
+                <h3>Summarize links using GPT3</h3>
                 <form onSubmit={onSubmit}>
+                    <label htmlFor="urlID">Enter an URL to summarize 👇</label>
                     <input
-                        type="text" name="url"
+                        type="text" name="url" id={"urlID"}
                         placeholder="Url to summarize [e.g. https://george.chiramattel.com/blog/application-rewrite]"
                         value={urlInput}
                         onChange={(e) => setUrlInput(e.target.value)}

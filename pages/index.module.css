@@ -51,6 +51,7 @@
     display: flex;
     flex-direction: column;
     width: 650px;
+    margin-top: 30px;
 }
 
 .main input[type="text"] {
