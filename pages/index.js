@@ -70,11 +70,11 @@ export default function Home() {
                     <input
                         type="text"
                         name="url"
-                        placeholder="Enter a url"
+                        placeholder="Enter the url of the article to summarize"
                         value={urlInput}
                         onChange={(e) => setUrlInput(e.target.value)}
                     />
-                    <input type="submit" value="Generate Summary"/>
+                    <input type="submit" value="Generate a short Summary of the 👆 URL"/>
                 </form>
 
                 <div className={styles.result}>
