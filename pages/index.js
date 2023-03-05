@@ -98,7 +98,9 @@ export default function Home() {
                     href="https://github.com/openai/openai-quickstart-node.git">Quick-Start guide</a>&nbsp;from&nbsp;
                     <a
                         href="https://platform.openai.com/docs/quickstart/setup">OpenAI</a>.<br/>
-                    This code for this project is available on Github &nbsp;<a href="https://github.com/georgeck/gpt-summary">here</a>.</span>
+                    This code for this project is available on Github &nbsp;<a href="https://github.com/georgeck/gpt-summary">here</a>.
+
+                </span>
                 </footer>
             </main>
         </div>
