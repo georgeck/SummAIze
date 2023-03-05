@@ -112,3 +112,23 @@
     margin-left: 50px;
     margin-right: 50px;
 }
+
+.main .footer {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    font-family: "ColfaxAI", Helvetica, sans-serif;
+    margin-top: 50px;
+}
+
+.main .footer a {
+    color: #10a37f;
+    text-decoration: none;
+}
+
+.main .footer span {
+    color: #202123;
+    text-align: center;
+
+}

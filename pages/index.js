@@ -92,6 +92,14 @@ export default function Home() {
                             <b>Total Cost:</b> ${((Number.parseInt(total_tokens) / 1000) * 0.002).toFixed(6)}</span>}
                     </div>
                 </div>
+
+                <footer  className={styles.footer} ><span>Made with ❤️ by&nbsp;<a href="https://george.chiramattel.com">George
+                    Chiramattel</a>&nbsp;based on the&nbsp;<a
+                    href="https://github.com/openai/openai-quickstart-node.git">Quick-Start guide</a>&nbsp;from&nbsp;
+                    <a
+                        href="https://platform.openai.com/docs/quickstart/setup">OpenAI</a>.<br/>
+                    This code for this project is available on Github &nbsp;<a href="https://github.com/georgeck/gpt-summary">here</a>.</span>
+                </footer>
             </main>
         </div>
     );
