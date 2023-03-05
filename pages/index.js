@@ -89,7 +89,7 @@ export default function Home() {
                     {completion_tokens > 0 &&
                         <label htmlFor="resultID"><b>Article Title:</b> {title}<br/><b>Article Summary</b> 👇</label>
                     }
-                    <textarea name="result" id="resultID" rows="25" disabled value={result}/>
+                    <textarea name="result" id="resultID" rows="25" aria-label="Article summary" disabled value={result}/>
 
                     <div>
                         {prompt_tokens > 0 && <span><b>Prompt tokens</b>: {prompt_tokens}</span>}
@@ -104,8 +104,8 @@ export default function Home() {
                     href="https://github.com/openai/openai-quickstart-node.git">Quick-Start guide</a>&nbsp;from&nbsp;
                     <a
                         href="https://platform.openai.com/docs/quickstart/setup">OpenAI</a>.<br/>
-                    This code for this project is available on Github &nbsp;<a
-                        href="https://github.com/georgeck/gpt-summary">here</a>.
+                    This code for this project is available at this &nbsp;<a
+                        href="https://github.com/georgeck/gpt-summary" >Github repository</a>.
 
                 </span>
                 </footer>
