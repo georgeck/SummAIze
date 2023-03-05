@@ -20,7 +20,7 @@ export default function Home() {
     async function onSubmit(event) {
         event.preventDefault();
         try {
-            if(urlInput === "") {
+            if (urlInput === "") {
                 setResult("Please enter a valid URL to summarize");
                 return;
             }
@@ -59,8 +59,14 @@ export default function Home() {
     }
 
     return (
-        <div>
+        <>
             <Head>
+                <meta charSet="UTF-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                <meta name="description" content="Summarize links using GPT3"/>
+                <meta name="keywords" content="GPT3, OpenAI, Summarize, Summarization, AI, Machine Learning"/>
+                <meta name="author" content="George Chiramattel"/>
+
                 <title>SummAIze</title>
                 <link rel="icon" href="/favicon-32x32.png"/>
             </Head>
@@ -93,16 +99,17 @@ export default function Home() {
                     </div>
                 </div>
 
-                <footer  className={styles.footer} ><span>Made with ❤️ by&nbsp;<a href="https://george.chiramattel.com">George
+                <footer className={styles.footer}><span>Made with ❤️ by&nbsp;<a href="https://george.chiramattel.com">George
                     Chiramattel</a>&nbsp;based on the&nbsp;<a
                     href="https://github.com/openai/openai-quickstart-node.git">Quick-Start guide</a>&nbsp;from&nbsp;
                     <a
                         href="https://platform.openai.com/docs/quickstart/setup">OpenAI</a>.<br/>
-                    This code for this project is available on Github &nbsp;<a href="https://github.com/georgeck/gpt-summary">here</a>.
+                    This code for this project is available on Github &nbsp;<a
+                        href="https://github.com/georgeck/gpt-summary">here</a>.
 
                 </span>
                 </footer>
             </main>
-        </div>
+        </>
     );
 }
