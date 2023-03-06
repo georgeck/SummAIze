@@ -89,7 +89,8 @@ export default function Home() {
                     {completion_tokens > 0 &&
                         <label htmlFor="resultID"><b>Article Title:</b> {title}<br/><b>Article Summary</b> 👇</label>
                     }
-                    <textarea name="result" id="resultID" rows="25" aria-label="Article summary" disabled value={result}/>
+                    <textarea name="result" id="resultID" rows="25" aria-label="Article summary" disabled
+                              value={result}/>
 
                     <div>
                         {prompt_tokens > 0 && <span><b>Prompt tokens</b>: {prompt_tokens}</span>}
@@ -105,8 +106,13 @@ export default function Home() {
                     <a
                         href="https://platform.openai.com/docs/quickstart/setup">OpenAI</a>.<br/>
                     This code for this project is available at this &nbsp;<a
-                        href="https://github.com/georgeck/gpt-summary" >Github repository</a>.
-
+                        href="https://github.com/georgeck/gpt-summary">Github repository</a>.<br/>
+                    <a href="https://twitter.com/georgeck" title="Follow me on Twitter">
+                        <svg viewBox="0 0 16 16" width="25" height="25"
+                             fill="currentColor"><path
+                            d="M15 3.429c-.517.24-1.07.402-1.651.477a3.028 3.028 0 0 0 1.264-1.675 5.761 5.761 0 0 1-1.827.728 2.8 2.8 0 0 0-2.1-.959C9.1 2 7.812 3.355 7.812 5.025c0 .24.027.47.074.691-2.39-.119-4.509-1.327-5.926-3.153-.25.444-.39.96-.39 1.522 0 1.052.509 1.977 1.279 2.52a2.758 2.758 0 0 1-1.302-.379c.66 1.819 1.428 2.821 2.306 3.007a2.783 2.783 0 0 1-1.293.052c.37 1.202 1.43 2.078 2.691 2.102A5.588 5.588 0 0 1 1 12.641 7.886 7.886 0 0 0 5.417 14c5.291 0 8.181-4.611 8.181-8.604 0-.128 0-.258-.008-.387.374-.283.844-.81 1.41-1.58z"></path></svg>
+                        &nbsp;
+                    </a>
                 </span>
                 </footer>
             </main>
