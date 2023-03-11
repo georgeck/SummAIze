@@ -75,12 +75,12 @@ async function generateChatPrompt(url) {
 
     const markdown = removeLinksFromMarkdown(contentMarkdown);
 
-    const truncatedString = truncateStringToWordCount(markdown, 2500);
+    const truncatedString = truncateStringToWordCount(markdown, 1500);
 
     return {
         prompt: [
             {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": "Can you help 250 word summary of the following article?"},
+            {"role": "user", "content": "Can you help create a 250 word summary of the following article?"},
             {"role": "user", "content": "The article is formatted as markdown."},
             {"role": "user", "content": `The title of the article is ${article.title}.`},
             {"role": "user", "content": `The article is as follows: \n${truncatedString}`}
@@ -101,7 +101,7 @@ function truncateStringToWordCount(str, num) {
 // function that removes links from markdown
 function removeLinksFromMarkdown(text) {
     // Replace all link occurrences with the link text
-    let regex = /\[([^\]]+)\]\(([^)]+)\)/g;
+    let regex = /\[([^\]]+)]\(([^)]+)\)/g;
     text = text.replace(regex, "$1");
 
     return text;
