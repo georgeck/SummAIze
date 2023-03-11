@@ -2,15 +2,15 @@ import {Configuration, OpenAIApi} from "openai";
 import {JSDOM, VirtualConsole} from "jsdom";
 import {Readability} from "@mozilla/readability";
 import {NodeHtmlMarkdown} from "node-html-markdown";
-import {encode} from 'gpt-3-encoder'
+// import {encode} from 'gpt-3-encoder'
 
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
 });
 
-// export const config = {
-//     runtime: "edge",
-// };
+export const config = {
+    runtime: "edge",
+};
 
 const openai = new OpenAIApi(configuration);
 
@@ -97,18 +97,7 @@ async function generateChatPrompt(url) {
 
 // function that takes a string and truncates it to a word boundary of given word count
 function truncateStringToTokenCount(str, num) {
-    const wordsArray = str.split(/\s+/);
-    let tokenCount = 0;
-    let wordsCount = 0;
-    for (const word of wordsArray) {
-        tokenCount += encode(word).length;
-        if (tokenCount > num) {
-            break;
-        }
-        wordsCount += 1;
-    }
-
-    return wordsArray.slice(0, wordsCount).join(" ");
+    return str.split(/\s+/).slice(0, num).join(" ");
 }
 
 // function that removes links from markdown
