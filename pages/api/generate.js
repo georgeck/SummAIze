@@ -7,6 +7,11 @@ import {encode} from 'gpt-3-encoder'
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
 });
+
+export const config = {
+    runtime: "edge",
+};
+
 const openai = new OpenAIApi(configuration);
 
 export default async function (req, res) {
